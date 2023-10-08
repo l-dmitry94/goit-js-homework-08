@@ -14,16 +14,21 @@ function handlerForm() {
         email: email.value,
         message: message.value,
     };
+
     saveFormObject(user);
 }
 
 restoreFormObject();
 
 function restoreFormObject() {
-    const currentFormObject = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-    if (currentFormObject) {
-        email.value = currentFormObject.email;
-        message.value = currentFormObject.message;
+    try {
+        const currentFormObject = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+        if (currentFormObject) {
+            email.value = currentFormObject.email;
+            message.value = currentFormObject.message;
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -35,7 +40,13 @@ function submitForm(event) {
         message: message.value,
     };
 
+    if(!user.email || !user.message) {
+        alert("Please fill in the fields of the form");
+        return;
+    }
+    
     console.log(user);
+    
     removeFormObject();
 
     feedbackForm.reset();
