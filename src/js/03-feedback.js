@@ -40,13 +40,14 @@ function submitForm(event) {
         message: message.value,
     };
 
-    if(!user.email || !user.message) {
-        alert("Please fill in the fields of the form");
+    if (!user.email || !user.message) {
+        alert('Please fill in the fields of the form');
+        removeFormObject();
         return;
     }
-    
+
     console.log(user);
-    
+
     removeFormObject();
 
     feedbackForm.reset();
